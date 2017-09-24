@@ -21,25 +21,27 @@
             var msBuildFile = RuntimeInformation.IsOSPlatform(OSPlatform.Windows)
                 ? "MSBuild.exe"
                 : "MSBuild";
+            string dotNetCoreSdkPath = @"C:\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.build.runtime\15.3.409\contentFiles\any\net46";
 
             // workaround https://github.com/Microsoft/msbuild/issues/999
-            // Environment.SetEnvironmentVariable("MSBUILD_EXE_PATH", Path.Combine(dotNetCoreSdkPath, msBuildFile));
-            bool runningInVisualStudio;
-            var visualStudioPath = FindVisualStudio(
-                new[] { processNameCommandLine, processNameCurrentProcess },
-                out runningInVisualStudio);
+             Environment.SetEnvironmentVariable("MSBUILD_EXE_PATH", Path.Combine(dotNetCoreSdkPath, msBuildFile));
 
-            string msbuildFromVisualStudioRoot = null;
-            if (!string.IsNullOrEmpty(visualStudioPath))
-            {
-                msbuildFromVisualStudioRoot = FileUtilities.CombinePaths(visualStudioPath, "MSBuild", "15.0", "Bin");
-            }
+            //bool runningInVisualStudio;
+            //var visualStudioPath = FindVisualStudio(
+            //    new[] { processNameCommandLine, processNameCurrentProcess },
+            //    out runningInVisualStudio);
+
+            //string msbuildFromVisualStudioRoot = null;
+            //if (!string.IsNullOrEmpty(visualStudioPath))
+            //{
+            //    msbuildFromVisualStudioRoot = FileUtilities.CombinePaths(visualStudioPath, "MSBuild", "15.0", "Bin");
+            //}
 
             this._parameters = new Dictionary<string, string>
             {
                 { "DesignTimeBuild", "true" },
                 { "Configuration", "Debug" },
-               // { "MSBuildExtensionsPath",  dotNetCoreSdkPath },
+                { "MSBuildExtensionsPath",  dotNetCoreSdkPath },
             };
         }
 
