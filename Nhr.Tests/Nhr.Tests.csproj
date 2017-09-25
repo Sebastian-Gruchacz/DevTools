@@ -97,9 +97,9 @@
       <Project>{47f5082f-c573-4f0d-acd1-239cb2cf8443}</Project>
       <Name>Nhr.Interfaces</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Nhr\Nhr.csproj">
+    <ProjectReference Include="..\Nhr\Nhr.Core.csproj">
       <Project>{E6EC56DC-987F-4FA2-B825-EA7804BBAAC5}</Project>
-      <Name>Nhr</Name>
+      <Name>Nhr.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProjectReading.Vs2017\ProjectReading.Vs2017.csproj">
       <Project>{3A789890-FED2-4B08-9066-F44531F7247F}</Project>

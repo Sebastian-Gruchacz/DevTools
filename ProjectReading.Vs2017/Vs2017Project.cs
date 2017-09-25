@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Configuration;
+    using System.Diagnostics;
     using System.IO;
     using System.Linq;
 
@@ -11,6 +12,7 @@
 
     using Nhr.Interfaces;
 
+    [DebuggerDisplay(@"{Name}")]
     internal class Vs2017Project : IProjectData
     {
         public string Name { get; private set; }
@@ -21,6 +23,8 @@
 
         public ICollection<LibraryReference> References { get; private set; } = new List<LibraryReference>();
 
+        public ICollection<ContentFile> ContentFiles { get; private set; } = new List<ContentFile>();
+
         public Vs2017Project(Project proj)
         {
             if (!System.IO.Path.IsPathRooted(proj.FullPath))
@@ -29,23 +33,24 @@
             }
 
             this.Path = proj.FullPath;
-            this.Name = System.IO.Path.GetFileNameWithoutExtension(proj.FullPath);
-            this.GetReferences(proj);
-            this.GetProjectReferences(proj);
-        }
-
-        private void GetProjectReferences(Project proj)
-        {
-            string thisProjectDirectory = System.IO.Path.GetDirectoryName(this.Path);
-            if (string.IsNullOrWhiteSpace(thisProjectDirectory))
+            string projectDirectory = System.IO.Path.GetDirectoryName(this.Path);
+            if (string.IsNullOrWhiteSpace(projectDirectory))
             {
                 throw new ConfigurationException("Invalid project path: " + this.Path);
             }
 
+            this.Name = System.IO.Path.GetFileNameWithoutExtension(proj.FullPath);
+            this.GetReferences(proj, projectDirectory);
+            this.GetProjectReferences(proj, projectDirectory);
+            this.GetContentFiles(proj, projectDirectory);
+        }
+
+        private void GetProjectReferences(Project proj, string projectDirectory)
+        {
             foreach (var item in proj.Items.Where(i => i.ItemType.Equals(@"ProjectReference")))
             {
                 var declaredPath = item.EvaluatedInclude;
-                var mappedPath = System.IO.Path.Combine(thisProjectDirectory, declaredPath);
+                var mappedPath = System.IO.Path.Combine(projectDirectory, declaredPath);
                 var unescappedPath = new FileInfo(mappedPath).FullName;
 
                 ProjectReference projRef;
@@ -53,6 +58,7 @@
                 {
                     projRef = new ProjectReference
                     {
+                        Name = System.IO.Path.GetFileNameWithoutExtension(unescappedPath),
                         Found = true,
                         Path = unescappedPath
                     };
@@ -61,6 +67,7 @@
                 {
                     projRef = new ProjectReference
                     {
+                        Name = System.IO.Path.GetFileNameWithoutExtension(unescappedPath),
                         Found = false,
                         Path = declaredPath
                     };
@@ -70,7 +77,7 @@
             }
         }
 
-        private void GetReferences(Project proj)
+        private void GetReferences(Project proj, string projectDirectory)
         {
             foreach (var item in proj.Items.Where(i => i.ItemType.Equals(@"Reference")))
             {
@@ -78,7 +85,26 @@
                 {
                     Name = this.ExtractLibraryName(item.EvaluatedInclude),
                     Version = this.ExtractVersionInfo(item.EvaluatedInclude),
-                    Hint = item.DirectMetadata.SingleOrDefault(meta => meta.Name.Equals(@"HintPath"))?.EvaluatedValue
+                    Hint = item.DirectMetadata.SingleOrDefault(meta => meta.Name.Equals(@"HintPath"))?.EvaluatedValue,
+                    MetaRequiredFramework = item.Metadata.SingleOrDefault(m => m.Name.Equals(@"RequiredTargetFramework", StringComparison.OrdinalIgnoreCase))?.EvaluatedValue
+                });
+            }
+        }
+
+        private void GetContentFiles(Project proj, string projectDirectory)
+        {
+            foreach (var item in proj.Items.Where(i => i.ItemType.Equals(@"Compile") || i.ItemType.Equals(@"None")))
+            {
+                var declaredPath = item.EvaluatedInclude;
+                var mappedPath = System.IO.Path.Combine(projectDirectory, declaredPath);
+                var file = new FileInfo(mappedPath);
+
+                this.ContentFiles.Add(new ContentFile
+                {
+                   Name = System.IO.Path.GetFileNameWithoutExtension(file.Name),
+                   Extension = new string(file.Extension.ToCharArray().Skip(1).ToArray()),
+                   Path = file.FullName,
+                   Exists = file.Exists
                 });
             }
         }
@@ -120,21 +146,5 @@
                 .ToString()
                 .Replace('/', System.IO.Path.DirectorySeparatorChar));
         }
-    }
-
-    internal class LibraryReference
-    {
-        public string Name { get; set; }
-
-        public Version Version { get; set; }
-
-        public string Hint { get; set; }
-    }
-
-    internal class ProjectReference
-    {
-        public string Path { get; set; }
-
-        public bool Found { get; set; }
     }
 }

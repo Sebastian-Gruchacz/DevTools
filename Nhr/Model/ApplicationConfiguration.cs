@@ -1,4 +1,4 @@
-﻿namespace Nhr
+﻿namespace Nhr.Core.Model
 {
     using System;
     using System.Collections.Generic;
@@ -7,7 +7,8 @@
     using System.Xml;
 
     using Conditions;
-    using Helpers;
+
+    using Nhr.Core.Helpers;
 
     public class ApplicationConfiguration
     {
@@ -17,6 +18,8 @@
         }
 
         public ICollection<BindingOverride> Entries { get; private set; } = new List<BindingOverride>();
+
+        public static ApplicationConfiguration Empty { get { return new ApplicationConfiguration(); } }
 
         public static ApplicationConfiguration FromFile(StreamReader stream)
         {

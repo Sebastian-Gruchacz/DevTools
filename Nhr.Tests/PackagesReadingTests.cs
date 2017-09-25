@@ -3,6 +3,7 @@
     using System.IO;
     using System.Linq;
 
+    using Nhr.Core.Model;
     using Nhr.Tests.Helpers;
 
     using Shouldly;

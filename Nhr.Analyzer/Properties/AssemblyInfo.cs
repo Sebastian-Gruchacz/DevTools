@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("ProjectReading.Vs2017")]
+[assembly: AssemblyTitle("Nhr.Analyzer")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("ProjectReading.Vs2017")]
+[assembly: AssemblyProduct("Nhr.Analyzer")]
 [assembly: AssemblyCopyright("Copyright © ObscureWare Solutions 2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("3a789890-fed2-4b08-9066-f44531f7247f")]
+[assembly: Guid("ece42c87-5b0e-4413-b5d1-f2c4fef28a8b")]
 
 // Version information for an assembly consists of the following four values:
 //

@@ -1,4 +1,4 @@
-﻿namespace Nhr
+﻿namespace Nhr.Core.Model
 {
     using System.Collections.Generic;
 
@@ -7,7 +7,7 @@
 
     using Conditions;
 
-    using Nhr.Helpers;
+    using Nhr.Core.Helpers;
 
     /// <summary>
     /// Contains direct outcome from reading 'packages.config' file
@@ -20,7 +20,14 @@
         }
 
         public ICollection<PackageEntry> Entries { get; private set; } = new List<PackageEntry>();
-        
+
+        public static Packages Empty
+        {
+            get
+            {
+                return new Packages();
+            }
+        }
 
         public static Packages FromFile(StreamReader stream)
         {
