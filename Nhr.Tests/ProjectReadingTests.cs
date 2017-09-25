@@ -9,7 +9,7 @@
         [Fact]
         public void try_loading_project_file()
         {
-            string testPath = @"J:\GitHub\CuttingEdge.Conditions\CuttingEdge.Conditions\CuttingEdge.Conditions.csproj";
+            string testPath = @"C:\SRC\StructuredEcoSystem\DTViewerBackend\src\ResultTracker.WebAPI\ResultTracker.WebAPI.csproj";
             ProjectLoader loader = new ProjectLoader();
             IProjectData projInfo = loader.TryLoadingProject(testPath);
         }
