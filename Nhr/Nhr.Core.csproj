@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Analyze\AnalyzeProject.cs" />
     <Compile Include="Model\ApplicationConfiguration.cs" />
     <Compile Include="Model\BindingOverride.cs" />
     <Compile Include="Model\BindingRedirection.cs" />
@@ -61,8 +62,16 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Analyze\" />
+    <ProjectReference Include="..\Nhr.Interfaces\Nhr.Interfaces.csproj">
+      <Project>{47f5082f-c573-4f0d-acd1-239cb2cf8443}</Project>
+      <Name>Nhr.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectReading.Vs2017\ProjectReading.Vs2017.csproj">
+      <Project>{3a789890-fed2-4b08-9066-f44531f7247f}</Project>
+      <Name>ProjectReading.Vs2017</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

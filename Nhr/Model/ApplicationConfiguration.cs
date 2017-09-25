@@ -19,6 +19,8 @@
 
         public ICollection<BindingOverride> Entries { get; private set; } = new List<BindingOverride>();
 
+        public static ApplicationConfiguration Empty { get { return new ApplicationConfiguration(); } }
+
         public static ApplicationConfiguration FromFile(StreamReader stream)
         {
             stream.Requires(nameof(stream)).IsNotNull();

@@ -1,5 +1,8 @@
 ﻿namespace Nhr.Core.Model
 {
+    using System.Diagnostics;
+
+    [DebuggerDisplay(@"{PackageId} ({VersionStringRaw}) ")]
     public class PackageEntry
     {
         private string versionStringRaw;

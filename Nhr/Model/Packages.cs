@@ -20,7 +20,14 @@
         }
 
         public ICollection<PackageEntry> Entries { get; private set; } = new List<PackageEntry>();
-        
+
+        public static Packages Empty
+        {
+            get
+            {
+                return new Packages();
+            }
+        }
 
         public static Packages FromFile(StreamReader stream)
         {

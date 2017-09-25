@@ -26,5 +26,10 @@
         /// Gets collection of libraries referenced in the project file
         /// </summary>
         ICollection<LibraryReference> References { get; }
+
+        /// <summary>
+        /// Gets collection of "content" files in the project
+        /// </summary>
+        ICollection<ContentFile> ContentFiles { get; }
     }
 }

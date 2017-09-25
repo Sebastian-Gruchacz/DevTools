@@ -1,10 +1,12 @@
 ﻿namespace Nhr.Interfaces
 {
     using System;
+    using System.Diagnostics;
 
     /// <summary>
     /// Contains information about referenced library
     /// </summary>
+    [DebuggerDisplay(@"{Name} ({Version})")]
     public class LibraryReference
     {
         /// <summary>

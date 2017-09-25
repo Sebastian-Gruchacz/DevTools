@@ -1,7 +1,9 @@
 ﻿namespace Nhr.Core.Model
 {
     using System;
+    using System.Diagnostics;
 
+    [DebuggerDisplay(@"{OldVersionMax}-{OldVersionMin} => {NewVersion}")]
     public class BindingRedirection
     {
         public BindingRedirection(string oldVersion, string newVersion)
