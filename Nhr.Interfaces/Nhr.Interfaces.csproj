@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard1.4</TargetFramework>
+    <Copyright>(C) ObscureWare Solutions 2017</Copyright>
   </PropertyGroup>
 
 </Project>
