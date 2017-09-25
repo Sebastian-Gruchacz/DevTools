@@ -1,11 +1,13 @@
 ﻿namespace Nhr.Core.Analyze
 {
     using System;
+    using System.Collections.Generic;
     using System.IO;
     using System.Linq;
 
     using Nhr.Core.Model;
     using Nhr.Interfaces;
+    using ProjectReading.Vs2017;
 
     public class AnalyzeProject
     {
@@ -66,6 +68,32 @@
                 this.AppConfig = ApplicationConfiguration.Empty;
             }
         }
-        
+
+        public ReferencesAnalyze GetSimpleReferencesAnalyze(ProjectLoader loader)
+        {
+            var allRelatedProjects = this.LoadReferencedProjects(this.project, loader);
+            
+
+            return null;
+        }
+
+        private IEnumerable<IProjectData> LoadReferencedProjects(IProjectData parentproject, ProjectLoader loader)
+        {
+            var projects = new List<IProjectData>();
+            
+            foreach (var projectReference in parentproject.ProjectReferences)
+            {
+                var proj = loader.TryLoadingProject(projectReference.Path);
+                projects.Add(proj);
+                var subProjects = this.LoadReferencedProjects(proj, loader);
+                projects.AddRange(subProjects);
+            }
+
+            return projects;
+        }
+    }
+
+    public class ReferencesAnalyze
+    {
     }
 }

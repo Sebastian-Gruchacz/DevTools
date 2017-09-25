@@ -23,5 +23,10 @@
         /// Gets or sets library hint location data (if any)
         /// </summary>
         public string Hint { get; set; }
+
+        /// <summary>
+        /// Required Framework setting for System references
+        /// </summary>
+        public string MetaRequiredFramework { get; set; }
     }
 }

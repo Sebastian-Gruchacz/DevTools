@@ -85,7 +85,8 @@
                 {
                     Name = this.ExtractLibraryName(item.EvaluatedInclude),
                     Version = this.ExtractVersionInfo(item.EvaluatedInclude),
-                    Hint = item.DirectMetadata.SingleOrDefault(meta => meta.Name.Equals(@"HintPath"))?.EvaluatedValue
+                    Hint = item.DirectMetadata.SingleOrDefault(meta => meta.Name.Equals(@"HintPath"))?.EvaluatedValue,
+                    MetaRequiredFramework = item.Metadata.SingleOrDefault(m => m.Name.Equals(@"RequiredTargetFramework", StringComparison.OrdinalIgnoreCase))?.EvaluatedValue
                 });
             }
         }
