@@ -1,4 +1,4 @@
-﻿namespace Nhr
+﻿namespace Nhr.Core.Model
 {
     using System;
 

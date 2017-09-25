@@ -5,9 +5,9 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{E6EC56DC-987F-4FA2-B825-EA7804BBAAC5}</ProjectGuid>
-    <OutputType>Exe</OutputType>
-    <RootNamespace>Nhr</RootNamespace>
-    <AssemblyName>Nhr</AssemblyName>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Nhr.Core</RootNamespace>
+    <AssemblyName>Nhr.Core</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -31,6 +31,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Conditions, Version=2.1.0.24, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Conditions.2.1.0\lib\portable-net45+win+wpa81+wp80+MonoAndroid10+MonoTouch10\Conditions.dll</HintPath>
@@ -46,19 +49,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApplicationConfiguration.cs" />
-    <Compile Include="BindingOverride.cs" />
-    <Compile Include="BindingRedirection.cs" />
+    <Compile Include="Model\ApplicationConfiguration.cs" />
+    <Compile Include="Model\BindingOverride.cs" />
+    <Compile Include="Model\BindingRedirection.cs" />
     <Compile Include="Helpers\XmlHelper.cs" />
-    <Compile Include="PackageEntry.cs" />
-    <Compile Include="Packages.cs" />
-    <Compile Include="PackageVersion.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="Model\PackageEntry.cs" />
+    <Compile Include="Model\Packages.cs" />
+    <Compile Include="Model\PackageVersion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Analyze\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

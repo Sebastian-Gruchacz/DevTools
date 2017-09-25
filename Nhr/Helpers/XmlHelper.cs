@@ -1,4 +1,4 @@
-﻿namespace Nhr.Helpers
+﻿namespace Nhr.Core.Helpers
 {
     using System;
     using System.Xml;

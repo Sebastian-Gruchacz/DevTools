@@ -7,7 +7,7 @@
     using Microsoft.Build.Evaluation;
     using Nhr.Interfaces;
 
-    public class ProjectLoader : IProjectLoader
+    public class ProjectLoader : IProjectLoader, IDisposable
     {
         private readonly ProjectCollection _collection = new ProjectCollection();
         private readonly Dictionary<string, string> _parameters;
@@ -50,6 +50,11 @@
             Project proj = new Project(projectPath, this._parameters, this._toolsVersion, this._collection);
 
             return new Vs2017Project(proj);
+        }
+
+        public void Dispose()
+        {
+            this._collection?.Dispose();
         }
     }
 }

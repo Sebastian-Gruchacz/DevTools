@@ -1,4 +1,4 @@
-﻿namespace Nhr
+﻿namespace Nhr.Analyzer
 {
     class Program
     {

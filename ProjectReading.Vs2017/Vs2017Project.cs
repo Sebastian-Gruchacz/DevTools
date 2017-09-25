@@ -121,20 +121,4 @@
                 .Replace('/', System.IO.Path.DirectorySeparatorChar));
         }
     }
-
-    internal class LibraryReference
-    {
-        public string Name { get; set; }
-
-        public Version Version { get; set; }
-
-        public string Hint { get; set; }
-    }
-
-    internal class ProjectReference
-    {
-        public string Path { get; set; }
-
-        public bool Found { get; set; }
-    }
 }
